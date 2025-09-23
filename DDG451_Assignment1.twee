@@ -1,0 +1,424 @@
+:: StoryTitle
+DDG451_Assignment1
+
+
+:: StoryData
+{
+  "ifid": "9661F86C-C777-4EEB-B4C5-2CE7AD3FD9DB",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Intro",
+  "zoom": 0.6
+}
+
+
+:: Accuse the Butler {"position":"3825,1075","size":"100,100"}
+You pointed toward the Butler...
+
+Detective (you):
+"Mr. Cutthroat… you orchestrated this whole scene to point the blame toward the others. But the evidence doesn’t lie—you’re the one who killed Sir Archibald."
+
+[[The police captured Mr. Cutthroat|True Ending]]
+
+
+:: Accuse the Colonel {"position":"3825,900","size":"100,100"}
+You pointed toward Major Hargrave...
+
+Detective (you):
+"You’re the one who killed Sir Archibald, because you're having a conflict with him last night, your presence in the manor, and the evidence all point to you trying to cover your tracks."
+
+[[The police captured Major Hargrave|Alternate Ending]]
+
+
+:: Accuse the Heiress {"position":"3825,700","size":"100,100"}
+You pointed toward Lady Constance...
+
+Detective (you):
+"Lady Constance, you killed him! You wanted to claim all of his inheritance, and you carefully set things up to point suspicion toward the others."
+
+[[The police captured Lady Constance|Secret Ending]]
+
+
+:: Accuse the Maid {"position":"3825,1250","size":"100,100"}
+You pointed toward Elsie the Housemaid...
+
+Detective (you):
+"Elsie… I can’t believe you did this! But your behavior, and the way you were first on the scene make it clear, you had access and opportunity."
+
+[[The police captured Elsie Sharpe|False Ending]]
+
+
+:: Alternate Ending {"position":"4325,900","size":"100,100"}
+Major Hargrave shakes his head in disbelief.
+
+Major Hargrave:
+"Detective… I was angry, yes, but I did not commit this crime!"
+
+The police detain him briefly, but soon realize he is innocent. 
+The true culprit remains free, and tension lingers in the manor. 
+The case is left partially unresolved, leaving a shadow over everyone involved.
+
+You've reach: Alternate Ending
+
+[[Return to Title|Intro]]
+
+
+:: Apron Button {"position":"2600,1650","size":"100,100"}
+You've found an ''Apron Button''
+(set:$maidEvidence to $maidEvidence +1)
+A small plastic button lies on the floor. It looks like it came from an apron…
+
+Detective (you):
+"Interesting…  Who could have lost this? Perhaps a clumsy little Elsie?"
+
+[[*Look for other items on the floor|Inspect the floor]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Broken Teacup {"position":"2600,1525","size":"100,100"}
+You've found a ''Broken Teacup''
+(set:$maidEvidence to $maidEvidence +1)(set:$butlerEvidence to $butlerEvidence +1)
+A broken teacup lies scattered below the table, its porcelain shards stained with tea.
+
+Detective (you):
+"A teacup… hmm. Who could serve him a tea? "
+
+[[*Look for other items on the floor|Inspect the floor]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Champagne bottle {"position":"2625,975","size":"100,100"}
+You've found ''Opened Champagne'' 
+
+A bottle of expensive champagne sits on the table, uncorked and half-empty. It seems to have been recently opened last night.
+
+Detective (you):
+"Judging by this, Sir Archibald had it for a small celebration with someone, but whoever served it would have seen or heard the argument."
+
+[[*look around the tabletop|Look at the tabletop]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Evidence gathered {"position":"3175,1050","size":"100,100"}
+You rush back to the living room
+
+Detective (you):
+"Thank you for waiting. I believe I’ve uncovered the truth… the person responsible for this tragic murder is among us."
+
+(if:$colonelEvidence > 2)
+[[It was you, Major!!!|Accuse the Colonel]]
+(if:$maidEvidence > 2)
+[[Elsie… I can’t believe you’ve done this!!!|Accuse the Maid]]
+(if:$butlerEvidence > 2)
+[[Mr. Cutthroat, you’re the one who did it!!!|Accuse the Butler]]
+(if:$heiressEvidence > 2)
+[[Lady Constance, you’re the one who killed him!!!|Accuse the Heiress]]
+
+
+:: False Ending {"position":"4325,1250","size":"100,100"}
+Elsie bursts into tears...
+
+Elsie Sharpe:
+"No! I didn’t do it! Please… you must believe me!"
+
+The police temporarily detain her, but further investigation reveals her innocence. Meanwhile, the real killer remains free. 
+The detective realizes the mistake too late, and the tragedy continues unsolved.
+
+You've reach: False Ending
+
+[[Return to Title|Intro]]
+
+
+:: Handkerchief {"position":"2600,1200","size":"100,100"}
+You've found a''Handkerchief'' 
+
+A delicate handkerchief, soaked in blood, still clutched in Sir Archibald’s hand.
+
+Detective (you):
+"He must have tried to fight back… but he couldn’t. Whoever did this had enough strength to overpower him, Perhaps he even tried to use this to cover the wound after the attack… someone smaller or weaker might not have managed that?"
+
+[[*Step back|Inspect the body]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Inspect the body {"position":"2400,1200","size":"100,100"}
+You start examining the body.
+
+Sir Archibald’s head is slumped against the table.  
+The blood has started to dry.  
+There are faint signs of a struggle, though it seems brief.  
+Judging by the state of the body, he has been dead for a couple of hours.
+
+Detective (you):  
+"His throat was cut… the killer came from behind.  
+It must have been someone he trusted."
+
+[[*Inspect what he’s holding in his hand|Handkerchief]]  
+[[*Step back and observe the rest of the scene|Inspect the crime scene]]
+
+
+
+:: Inspect the crime scene {"position":"1700,1050","size":"100,100"}
+You entering the drawing room...
+
+It’s a small, crowded room where Sir Archibald was murdered.
+His body is slumped in the chair by his desk.
+Books and papers are scattered everywhere, making the room feel messy and tense.
+
+[[*Check his body|Inspect the body]]
+[[*Look around his table|Inspect the table]]
+[[*Look around the floor|Inspect the floor]]
+[[*Walk to another Room|Living Room]] 
+
+
+
+:: Inspect the floor {"position":"2050,1475","size":"100,100"}
+You start scanning the floor, examining every inch carefully.
+
+A jumble of objects lies scattered across the room.
+
+[[*Examine the shattered teacup|Broken Teacup]]  
+[[*Pick up the old pocket watch|Pocket watch]]  
+[[*Move closer to inspect the stained rug|Stained Rug]]  
+[[*Inspect the small button on the floor|Apron Button]]  
+[[*Step back and take in the whole scene|Inspect the crime scene]]
+
+
+
+:: Inspect the table {"position":"2025,600","size":"100,100"}
+You start searching for clue around the desk 
+
+[[*Look at the tabletop|Look at the tabletop]]
+[[*Open the drawer|Open the drawer]]
+[[Maybe I should step back |Inspect the crime scene]]
+
+
+:: Intro {"position":"475,900","size":"100,100"}
+(align:"=><=")[
+DDG451 Interactive storytelling 
+Assignment#1
+Jakkapat Nuchprayoon
+]
+(align:"=><=")[[Start]]
+
+(set: $maidEvidence to 0)
+(set: $butlerEvidence to 0)
+(set: $heiressEvidence to 0)
+(set: $colonelEvidence to 0)
+
+
+
+
+
+
+
+
+:: Letter Opener {"position":"2625,725","size":"100,100"}
+You've found a ''Letter Opener''
+(set:$maidEvidence to $maidEvidence +1)(set:$heiressEvidence to $heiressEvidence +1)(set:$butlerEvidence to $butlerEvidence +1)
+A sharp, silver letter opener lies on the table, its tip stained with blood. Clearly, it played a role in the struggle… or worse.
+
+Detective (you):
+"Only someone in this house would know where this is… That narrows the suspects considerably. I need to see who had the opportunity to use it."
+
+[[*look around the tabletop|Look at the tabletop]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Living Room {"position":"1000,1050","size":"100,100"}
+You step into the living room...
+
+Police officers are present, and a small group of people sit nervously, awaiting your questions. The tension in the room is palpable.
+
+[[*Talk with the Housemaid|The Maid]]
+
+[[*Talk with the Butler|The Butler]]
+
+[[*Talk with the Heiress|The Heiress]]
+
+[[*Talk with the Colonel|The Colonel]]
+
+[[*Leave the room|Inspect the crime scene]]
+
+
+
+:: Look at the tabletop {"position":"2350,775","size":"100,100"}
+You look around the tabletop.
+
+The tabletop is cluttered with objects, some ordinary, some far more suspicious. 
+
+[[*Examine the sharp tool on the table|Letter Opener]]  
+[[*Inspect the unopened bottle|Champagne bottle]]  
+[[*Take a closer look at the glasses|Wine Glasses]]  
+[[*Investigate the mysterious token|Old Medallion]]  
+[[*Search another part of the table|Inspect the table]]
+
+
+
+:: Old Medallion {"position":"2625,600","size":"100,100"}
+You've found an ''Old Medallion'' 
+(set:$colonelEvidence to $colonelEvidence +1)
+A worn military medallion lies on the table, its surface scratched and dulled with age. 
+
+Detective (you):
+"This.... it could be important… a clue pointing to someone with a military background?, but why does it ended up here?"
+
+[[*look around the tabletop|Look at the tabletop]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Open the drawer {"position":"2425,350","size":"100,100"}
+You pull out the drawer under the desk.
+
+The drawer creaks as it opens, revealing a few personal items tucked away inside.
+
+[[*Examine the tiny vial hidden inside|Poison vial]]  
+[[*Close the drawer and step back|Inspect the table]]
+
+
+
+:: Pocket watch {"position":"2600,1800","size":"100,100"}
+You've found a ''Pocket Watch''
+
+A broken brass pocket watch lies under the table, its hands frozen at an odd hour. It's belong to Sir Archibald. Perhaps it was dropped during a struggle
+
+Detective (you):
+"Judging by this… there was definitely a struggle. Someone must have grabbed him in a hurry, or he tried to defend himself."
+
+[[*Look for other items on the floor|Inspect the floor]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Poison vial {"position":"2625,400","size":"100,100"}
+You've found a ''Poison Vial''
+
+A small glass vial containing a clear, suspicious liquid sits inside his drawler. 
+
+Detective (you):
+"It looks like poison… had Sir Archibald planned to use it on someone else?"
+
+[[*Look around the drawer|Open the drawer]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Secret Ending {"position":"4325,725","size":"100,100"}
+Lady Constance smirks lightly, tapping her jeweled finger against her chin.
+
+Lady Constance:
+"You may think you’ve solved it… but some mysteries are never fully revealed."
+
+The police move in and escort her from the room, though whispers remain about whether she was truly guilty or only involved in a deeper scheme. The detective is left pondering the hidden motives of the manor’s inhabitants.
+
+You've reach: Secret Ending
+
+[[Secret Ending Complete|Intro]]
+
+
+:: Stained Rug {"position":"2600,1400","size":"100,100"}
+You've found a ''Stained rug''
+(set:$maidEvidence to $maidEvidence +1)(set:$butlerEvidence to $butlerEvidence +1)
+An old, worn-out carpet lies on the floor, its surface soaked with a spilled tea.
+
+Detective (you):
+"Looks like someone dropped their tea here… the spill is still fresh. Might be a sign of a struggle or someone moving in a hurry?"
+
+[[*Look for other items on the floor|Inspect the floor]](if:$maidEvidence > 1 or (if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
+
+
+:: Start {"position":"1000,1300","size":"100,100"}
+Year 1912
+In the rainy morning...
+
+You've arrive at the Liberton manor 
+there was a group of police arrive here earlier
+hearing that the owner of the house, Sir Archibald 
+have been murdered inside his own drawing room. 
+
+[[*Examine the crime scene|Inspect the crime scene]]
+
+[[*Talk with the suspects|Living Room]]
+
+
+
+:: The Butler {"position":"1425,1000","size":"100,100"}
+You start talking with the Butler...
+(set:$maidEvidence to $maidEvidence +1)
+The butler, Mr. Cutthroat, stands tall with perfect manners, his voice steady—perhaps too steady.
+
+Mr. Cutthroat:
+"Sir Archibald’s death is a tragedy, yes. But honestly… I can’t help but wonder about Elsie. She was the first to find him, and she tends to wander around when she shouldn’t. Perhaps she knows more than she admits…"
+
+[[*Talk with the others|Living Room]]
+[[*Examine the crime scene...|Inspect the crime scene]]
+
+
+:: The Colonel {"position":"1425,1275","size":"100,100"}
+You start talking with the Colonel...
+(set:$butlerEvidence to $butlerEvidence +1)
+Major Hargrave, a stern man with a soldier’s posture, shifts uneasily in the manor’s gloom.
+
+Major Hargrave:
+"I came to visit him yesterday evening. He asked me to stay the night… we had a small disagreement, and I left his room upset. You can ask the Butler… he was there too when we were arguing."
+
+[[*Talk with the others|Living Room]]
+[[*Examine the crime scene...|Inspect the crime scene]]
+
+
+:: The Heiress {"position":"1425,825","size":"100,100"}
+You start talking with the Heiress...
+(set:$colonelEvidence to $colonelEvidence +1)
+Lady Constance, poised and elegant, taps a jeweled finger against her chin as her sharp eyes study you.
+
+Lady Constance:
+"He often worked late in his room… but last night, I heard him arguing with the Colonel. Their voices carried all the way through the halls."
+
+[[*Talk with the others|Living Room]]
+[[*Examine the crime scene...|Inspect the crime scene]]
+
+
+
+:: The Maid {"position":"1425,1150","size":"100,100"}
+You start talking with the Housemaid...
+
+Her name is Elsie Sharpe. A timid woman in a worn apron, she wrings her hands as she speaks, she was the first to find Sir Archibald’s body.
+
+Elsie Sharpe:
+"I… I didn’t see anything myself. I heard strange noises from his room last night... it really frightened me And this morning, when I went to bring him his morning tea… he was already gone."
+
+[[*Talk with the others|Living Room]]
+[[*Examine the crime scene...|Inspect the crime scene]]
+
+
+:: True Ending {"position":"4325,1075","size":"100,100"}
+Mr. Cutthroat’s calm demeanor falters as the evidence is laid out.
+
+Mr. Cutthroat:
+"…So it’s over then. Very well."
+
+The police handcuff him and lead him away. Justice is served, and the manor begins to recover from the tragedy. The detective reflects on the betrayal from someone so trusted.
+
+You've reach: True Ending
+
+[[Return to Title|Intro]]
+
+
+:: Wine Glasses {"position":"2625,850","size":"100,100"}
+You've found a ''Wine Glasses''
+(set:$heiressEvidence to $heiressEvidence +1)
+A pair of wine glasses sit on the table. One has lipstick smudges on the rim.
+
+Detective (you):
+"Interesting… this might reveal who was drinking here recently."
+
+[[*look around the tabletop|Look at the tabletop]]
+(if:$maidEvidence > 2 or $colonelEvidence > 2 or $butlerEvidence > 2 or $heiressEvidence > 2)
+[[I think I know the truth|Evidence gathered]] 
