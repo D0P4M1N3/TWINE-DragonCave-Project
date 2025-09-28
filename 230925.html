@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play 230925.</tw-noscript></noscript></tw-story>
-<tw-storydata name="230925" startnode="1" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="03470E5B-32CA-4059-8BD6-49A2FCEB6203" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Intro 01A" tags="" position="200,1100" size="100,100">(set: $plrMood to 0)
+<tw-storydata name="230925" startnode="1" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="03470E5B-32CA-4059-8BD6-49A2FCEB6203" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Intro 00A" tags="" position="200,1100" size="100,100">(set: $Mood to 0)
 (set: $trust to 0)
 (set: $day to 0)
 (set: $alreadyStruggle to false)
@@ -19,137 +19,204 @@
 (set: $alreadyObserve to false)
 (set: $alreadyExplore to false)
 (set: $alreadySleep to false)
+(set: $hasWeapon to false)
 
-[[Start|Dragon Cave 01B]]
-</tw-passagedata><tw-passagedata pid="2" name="Dragon Cave 01B" tags="" position="400,1100" size="100,100">You have been caugth by the mighty evil dragon
+[[Start|Dragon Cave 01A]]
+</tw-passagedata><tw-passagedata pid="2" name="Day 01C" tags="" position="575,1100" size="100,100">(set: $dayleft to 7 - $day)
 
-(set: $playerName to (prompt: &quot;What is your name??&quot;, &quot;Human&quot;))
+Day $day — ($dayleft days left)  
 
-[[continue|Hub 01C]]
+The dragon is sleeping, blocking the entrance.  
+What will you do?
+
+(if: $alreadyStruggle is false and $day &lt; 7)[[[Try to struggle -&gt; Struggle 01C]]]
+(if: $alreadySearching is false and $day &lt; 7)[[[Look for a hidden weapon -&gt; Find Weapon 02C]]]
+(if: $alreadyTalk is false and $day &lt; 7)[[[Talk to the dragon -&gt; Talk 03C]]]
+(if: $alreadyPlayDead is false and $day &lt; 7)[[[Pretend to faint to test reaction -&gt; Play Dead 04C]]]
+(if: $alreadyObserve is false and $day &lt; 7)[[[Look closer at the dragon -&gt; Observe 05C]]]
+(if: $alreadyExplore is false and $day &lt; 7)[[[Wander around -&gt; Explore 06C]]]
+(if: $alreadySleep is false and $day &lt; 7)[[[Sleep for the day -&gt; Sleep 07C]]]
+(if: $hasWeapon is true and $day &lt; 7)[[[Stab the dragon |Stab 08C]]]
+(if: $day is 7)[(link: &quot;Continue&quot;)[(goto: &quot;Got Eaten 01E&quot;)]]
+</tw-passagedata><tw-passagedata pid="3" name=" Struggle 01C" tags="" position="1225,75" size="100,100">Day $day | You struggle to escape from the dragon
+(set: $trust to $trust -1) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadyStruggle to true)
+
+(if: $trust &lt; 2)[[Struggle to escape -&gt;Struggle 01D]]
+(if: $trust &gt; 2)[[Struggle to escape -&gt;Struggle 02D]]
+
+</tw-passagedata><tw-passagedata pid="4" name=" Find Weapon 02C" tags="" position="1225,325" size="100,100">Day $day | You tried to find a weapons inside a dragon&#39;s den
+(set: $trust to $trust-1) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadySearching to true)
+
+(if: $trust &lt; 2)[[Search for a Weapon|Find Weapon 01D]]
+(if: $trust &gt; 2 and $alreadyExplore)[[Search for a Weapon|Find Weapon 02D]]</tw-passagedata><tw-passagedata pid="5" name=" Observe 05C" tags="" position="1200,1075" size="100,100">Day $day | You tried to observe the dragon quietly
+(set: $trust to $trust+1) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadyObserve to true)
+
+(if: $trust &lt; 3)[[Staring|Observe 01D]] 
+</tw-passagedata><tw-passagedata pid="6" name="Got Eaten 01E" tags="" position="2100,125" size="100,100">You are lifted in its claws and swallowed whole.  
+
+***ENDING: Eaten by the Dragon***  
+
+(link: &quot;Restart&quot;)[
+    (goto: &quot;Intro 00A&quot;)
+]</tw-passagedata><tw-passagedata pid="7" name="Escape 02E" tags="" position="2100,300" size="100,100">While the dragon is distracted, you slip past its guard and into the night.  
+The cold air fills your lungs as freedom greets you at last.  
+
+***ENDING: Escape***  
+
+(link: &quot;Restart&quot;)[
+    (goto: &quot;Intro 00A&quot;)
+]</tw-passagedata><tw-passagedata pid="8" name="Play Dead 01D" tags="" position="1450,775" size="100,100">The dragon nudges you with a claw, uncertain for a moment.  
+Then it snorts and pulls back, muttering.  
+
+Dragon: 
+Pathetic $playerName… not even worth the effort today.
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Got Eaten 01E&quot;)
+]</tw-passagedata><tw-passagedata pid="9" name="Play Dead 02D" tags="" position="1450,900" size="100,100">The dragon lowers its massive head, glaring down at your still body.  
+
+With a huff of smoke, it smirks.
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="10" name=" Sleep 07C" tags="" position="1200,1600" size="100,100">Day $day | You curl up uneasily on the cold stone floor
+(set: $trust to $trust+1) (set: $day to $day +1) (set: $Mood to $Mood)
+
+[[Lie down|Sleep 07D]]
+</tw-passagedata><tw-passagedata pid="11" name="Struggle 01D" tags="" position="1450,25" size="100,100">You tried to struggle, But it&#39;s seems like the dragon doesn&#39;t trust you enough
+
+The dragon notice your struggle, using it tail to blocking the exit.
+
+Dragon:
+foolish $playerName do you really think I&#39;m a fool?
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="12" name="Struggle 02D" tags="" position="1450,150" size="100,100">You slowly sneak toward the cavern exit while the dragon are distracted,  
+
+For now, it hasn’t noticed your movements..
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Escape 02E&quot;)
+]
+</tw-passagedata><tw-passagedata pid="13" name="Find Weapon 01D" tags="" position="1450,275" size="100,100">You reach for a sharp rock, but the dragon growls. 
+
+It crushes the stone beneath a claw.
+
+Dragon: 
+$playerName, Scheming, are we?
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="14" name="Find Weapon 02D" tags="" position="1450,400" size="100,100">You quietly sneak a small dagger from a treasure room.
+(set: $hasWeapon to true)
+The dragon doesn’t seem to notice,
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="15" name="Talk 01D" tags="" position="1450,525" size="100,100">You try speaking to the dragon, but its eyes narrow.
+
+it&#39;s still not treusted in you enough..
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="16" name="Talk 02D" tags="" position="1450,650" size="100,100">You begin talking, your voice trembling at first.  
+
+The dragon tilts its head, listening with an unexpected patience...
+    
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="17" name="Observe 01D" tags="" position="1450,1075" size="100,100">The dragon doesn’t seem to care about your staring. 
+
+Its scales carries lots of scarred left behind from warriors who failed before you
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="18" name="Explore 01D" tags="" position="1450,1275" size="100,100">The dragon’s tail thumps the ground, blocking you.  
+    
+Dragon: 
+Stay where I can see you, $playerName. The cave is mine not yours to wander.
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="19" name="Explore 02D" tags="" position="1450,1400" size="100,100">You sneak deeper inside, 
+
+you discover a hidden chamber glittering with gold, relics, weapons and broken knight armor.
+
+(link: &quot;Continue&quot;)[
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="20" name=" Play Dead 04C" tags="" position="1200,850" size="100,100">Day $day | You tried to play dead
+(set: $trust to $trust) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadyPlayDead to true)
+
+(if: $trust &lt; 0)[[Play Dead|Play Dead 01D]] 
+(if: $trust &gt;= 0)[[Play Dead|Play Dead 02D]] 
+
+</tw-passagedata><tw-passagedata pid="21" name=" Explore 06C" tags="" position="1200,1325" size="100,100">Day $day | You wanders around the cave 
+(set: $trust to $trust-1) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadyExplore to true)
+
+(if: $trust &lt; 3)[[Explore|Explore 01D]] 
+(if: $trust &gt; 3)[[Explore|Explore 02D]] 
+</tw-passagedata><tw-passagedata pid="22" name=" Talk 03C" tags="" position="1200,600" size="100,100">Day $day | You tried to talk with the dragon
+(set: $trust to $trust+1) (set: $day to $day +1) (set: $Mood to $Mood)
+(set: $alreadyTalk to true)
+
+(if: $trust &lt; 2)[[Talking with the dragon|Talk 01D]] 
+(if: $trust &gt; 2)[[Talking with the dragon|Talk 02D]] </tw-passagedata><tw-passagedata pid="23" name="Dragon Cave 01A" tags="" position="400,1100" size="100,100">(set: $playerName to (prompt: &quot;What is your name??&quot;, &quot;Human&quot;))
+
+You wake up unconscious, inside a dimly cave
+
+It is no ordinary cavern. This is the lair of a dragon.  
+
+Dragon: 
+You only have 7 days before I decide your fate...
+
+[[Continue|Day 01C]]
 
 (align:&quot;=&gt;&lt;==&quot;)[&lt;img src=https://cdn.shopify.com/s/files/1/0297/2087/1049/files/pupuce.jpg?v=1588777121&gt;]
 
 
 
 
-</tw-passagedata><tw-passagedata pid="3" name="Hub 01C" tags="" position="575,1100" size="100,100">(set: $dayleft to 7 - $day)
-
-The dragon is sleeping inside it&#39;s cave 
-
-What will you choose to do?
-(if: $alreadyStruggle is false)[[Try to Struggle -&gt; Struggle 01C]]
-(if: $alreadySearching is false)[[Look for a hidden weapon -&gt; Find Weapon 02C]]
-(if: $alreadyTalk is false)[[Talk to the dragon now -&gt; Talk 03C]]
-(if: $alreadyPlayDead is false)[[Pretend to faint to test reaction -&gt; Play Dead 04C]]
-(if: $alreadyObserve is false)[[Look closer at the dragon -&gt; Observe 05C]]
-(if: $alreadyExplore is false)[[Wandering around the cave -&gt; Explore 06C]]
-(if: $alreadySleep is false)[[Sleep for the day -&gt; Sleep 07C]]
-</tw-passagedata><tw-passagedata pid="4" name=" Struggle 01C" tags="" position="1225,75" size="100,100">Day $day | You struggle to escape from the dragon
-(set: $trust to $trust -1) (set: $day to $day +1) (set: $plrMood to $plrMood -1)
-(set: $alreadyStruggle to true))
-
-(if: $trust &lt; 2)[[Continue -&gt;Struggle 01D]]
-(if: $trust &gt; 2)[[Continue -&gt;Struggle 02D]]
-
-</tw-passagedata><tw-passagedata pid="5" name=" Find Weapon 02C" tags="" position="1225,325" size="100,100">Day $day | You tried to find a weapons inside a dragon&#39;s den
-(set: $trust to $trust -1) (set: $day to $day +1) (set: $plrMood to $plrMood)
-(set: $alreadySearching to true))
-
-(if: $trust &lt; 2)[[Find Weapon 01D]]
-(if: $trust &gt; 2 and $alreadyExplore)[[Find Weapon 02D]]</tw-passagedata><tw-passagedata pid="6" name=" Observe 05C" tags="" position="1200,1075" size="100,100">Day $day | You tried to observe the dragon quietly
-(set: $trust to $trust +1) (set: $day to $day +1) (set: $plrMood to $plrMood +1)
-(set: $alreadyObserve to true))
-
-(if: $trust &lt; 3)[[Observe 01D]] 
-(if: $trust &gt; 3)[[Observe 02D]] 
-</tw-passagedata><tw-passagedata pid="7" name="Got Eaten(End)" tags="" position="2250,325" size="100,100">You got eaten by the dragon, 
-
-Your stories will be told among the generations</tw-passagedata><tw-passagedata pid="8" name="Escape(End)" tags="" position="2250,550" size="100,100">You finally succes to escape from teh dragon den</tw-passagedata><tw-passagedata pid="9" name="Friend(End)" tags="" position="2250,775" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="Play Dead 01D" tags="" position="1450,775" size="100,100">You lie down, trying to hold your breath, tricking the dragon that you&#39;re alreay dead
-
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Got Eaten(End)&quot;)
-]</tw-passagedata><tw-passagedata pid="11" name="Play Dead 02D" tags="" position="1450,900" size="100,100">The dragon seems to pity for your pathetic fragile, 
-
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="12" name=" Sleep 07C" tags="" position="1200,1600" size="100,100">Day $day | The Dragon Watching you rest
-(set: $trust to $trust) (set: $day to $day +1) (set: $plrMood to $plrMood +1)
-(set: $alreadyStruggle to true))
-
-(if: $trust &lt; 3)[[Sleep 01D]] 
-(if: $trust &gt; 3)[[Sleep 02D]] 
-</tw-passagedata><tw-passagedata pid="13" name="Struggle 01D" tags="" position="1450,25" size="100,100">Dragon: 
-Foolish Human , that&#39;s not going to works
+</tw-passagedata><tw-passagedata pid="24" name="Sleep 07D" tags="" position="1425,1600" size="100,100">Exhaustion weighs on you, and you decide to rest within the dragon’s cavern. 
 
 (link: &quot;Continue&quot;)[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="14" name="Struggle 02D" tags="" position="1450,150" size="100,100">You tried to rushed with your feet, While the dragon is unbothered
+    (goto: &quot;Day 01C&quot;)
+]</tw-passagedata><tw-passagedata pid="25" name="Stab 08C" tags="" position="1200,1800" size="100,100">Day $day | You quietly sneak to the dragon
+(set: $trust to $trust-1) (set: $day to $day +1) (set: $Mood to $Mood)
+
+[[Stab it&#39;s head|Stab 08D]]
+</tw-passagedata><tw-passagedata pid="26" name="Stab 08D" tags="" position="1425,1800" size="100,100">You carefully climb onto the dragon’s head while it slumbers,
+With all your strength, you drive the blade deep onto its head.  
+
+The dragon lets out a terrible scream, thrashing violently in pain before collapses.
 
 (link: &quot;Continue&quot;)[
-	(goto: &quot;Hub 01C&quot;)
+    (goto: &quot;DragonSlayer 03E&quot;)
+]</tw-passagedata><tw-passagedata pid="27" name="DragonSlayer 03E" tags="" position="2100,500" size="100,100">The cavern shakes as the dragon lets out a terrible scream, thrashing violently in agony.  
+At last, the beast collapses, its body shuddering before it lies still.  
+
+Silence. You stand alone among the treasure and bones.  
+
+***ENDING: Dragon Slayer***  
+
+(link: &quot;Restart&quot;)[
+    (goto: &quot;Intro 00A&quot;)
 ]
-</tw-passagedata><tw-passagedata pid="15" name="Find Weapon 01D" tags="" position="1450,275" size="100,100">Dragon: 
-Where are you going?
+</tw-passagedata><tw-passagedata pid="28" name="Friend 04E" tags="" position="2100,700" size="100,100">Dragon: &quot;Strange creature… you are no prey. You are… companion.&quot;  
 
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="16" name="Find Weapon 02D" tags="" position="1450,400" size="100,100">You quietly sneak into a treasure room
+Against all odds, the dragon spares you.  
+Not as food, but as a friend.  
 
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="17" name="Talk 01D" tags="" position="1450,525" size="100,100">(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="18" name="Talk 02D" tags="" position="1450,650" size="100,100">You both get to know each other...
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="19" name="Observe 01D" tags="" position="1450,1025" size="100,100">(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="20" name="Observe 02D" tags="" position="1450,1150" size="100,100">(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="21" name="Explore 01D" tags="" position="1450,1275" size="100,100">Dragon:
+***ENDING: Dragon’s Friend***  
 
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="22" name="Explore 02D" tags="" position="1450,1400" size="100,100">Dragon:
-
-
-(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="23" name="Sleep 01D" tags="" position="1450,1550" size="100,100">(link: &quot;You sleep through the day&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="24" name="Sleep 02D" tags="" position="1450,1675" size="100,100">(link: &quot;Continue&quot;)
-[
-    (goto: &quot;Hub 01C&quot;)
-]</tw-passagedata><tw-passagedata pid="25" name=" Play Dead 04C" tags="" position="1200,850" size="100,100">Day $day | You tried to play dead
-(set: $trust to $trust) (set: $day to $day +1) (set: $plrMood to $plrMood)
-(set: $alreadyPlayDead to true))
-
-(if: $trust &lt; 3)[[Play Dead 01D]] 
-(if: $trust &gt; 3)[[Play Dead 02D]] 
-
-</tw-passagedata><tw-passagedata pid="26" name=" Explore 06C" tags="" position="1200,1325" size="100,100">Day $day | You wanders around the cave 
-(set: $trust to $trust -1) (set: $day to $day +1) (set: $plrMood to $plrMood +1)
-(set: $alreadyExplore to true))
-
-(if: $trust &lt; 3)[[Explore 01D]] 
-(if: $trust &gt; 3)[[Explore 02D]] 
-</tw-passagedata><tw-passagedata pid="27" name=" Talk 03C" tags="" position="1200,600" size="100,100">Day $day | You tried to talk with the dragon
-(set: $trust to $trust +1) (set: $day to $day +1) (set: $plrMood to $plrMood +1)
-(set: $alreadyTalk to true))
-
-(if: $trust &lt; 2)[[Talk 01D]] 
-(if: $trust &gt; 2)[[Talk 02D]] </tw-passagedata></tw-storydata>
+(link: &quot;Restart&quot;)[
+    (goto: &quot;Intro 00A&quot;)
+]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
